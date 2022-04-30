@@ -1,40 +1,33 @@
-<div class="mx-5">
-  <div class="row row-cols-1 row-cols-md-2 g-4">
-    <div class="col">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+<div class="m-5">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <ng-container *ngIf="films$ | async as film">
+      <div class="col" *ngFor="let item of film">
+        <div class="card h-100 c-card">
+          <ng-template
+            appMovieCover
+            [episodeID]="item.url"
+            [class]="'card-img-top'"
+          ></ng-template>
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">
+              Episode {{ item.episode_id | romanNumber }} / Director:
+              {{ item.director }}
+            </p>
+          </div>
+          <div class="card-footer text-center">
+            <a [routerLink]="item.url.slice(item.url.length - 2, -1)" class="btn btn-outline-light">
+              <img
+                src="assets/images/c3p0_icon-icons.com_76936.png"
+                class=""
+                alt="logo"
+                height="35"
+              />
+              Characters
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
+    </ng-container>
   </div>
 </div>

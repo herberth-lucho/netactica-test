@@ -10,13 +10,27 @@ const routes: Routes = [
     children: [
       {
         path: 'films',
-        loadChildren: () =>
-          import('./films/films.module').then((m) => m.FilmsModule),
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./films/films.module').then((m) => m.FilmsModule),
+          },
+          {
+            path: ':id',
+            loadChildren: () =>
+              import('./film-characters/film-characters.module').then(
+                (m) => m.FilmCharactersModule
+              ),
+          },
+        ],
       },
       {
         path: 'characters',
         loadChildren: () =>
-          import('./characters/characters.module').then((m) => m.CharactersModule),
+          import('./characters/characters.module').then(
+            (m) => m.CharactersModule
+          ),
       },
     ],
   },
