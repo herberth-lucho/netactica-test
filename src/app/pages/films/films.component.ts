@@ -1,6 +1,8 @@
+import { element } from 'protractor';
+import { FilmResult } from './../../shared/models/film.model';
 import { SwapiService } from './../../shared/services/swapi.service';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { FilmResponse } from 'src/app/shared/models/film.model';
 
 @Component({
@@ -9,13 +11,19 @@ import { FilmResponse } from 'src/app/shared/models/film.model';
   styleUrls: ['./films.component.scss'],
 })
 export class FilmsComponent {
-  films$ = this.swapiService
-    .getFilms()
-    .pipe(
-      map((film: FilmResponse) => {
-        return film.results;
-      })
-    );
+  films$ = this.swapiService.getFilms().pipe(
+    filter((result) => result.results !== []),
+    map((result) => result.results),
+    map((data) =>
+      data.map((film) => ({
+        title: film.title,
+        episode_id: film.episode_id,
+        opening_crawl: film.opening_crawl,
+        director: film.director,
+        url: film.url,
+      }))
+    )
+  );
 
   constructor(public swapiService: SwapiService) {}
 }

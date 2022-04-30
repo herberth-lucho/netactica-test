@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FilmResponse, FilmResult } from '../models/film.model';
+import { Character } from '../models/character.model';
 
 export const API_URL = 'https://swapi.dev/api/';
 
@@ -25,7 +26,7 @@ export class SwapiService {
   }
 
   getCharacterById(id: string) {
-    return this.http.get(API_URL + 'people/' + id);
+    return this.http.get<Character>(API_URL + 'people/' + id);
   }
 
   search(text: string, resource: string) {

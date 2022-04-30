@@ -2,21 +2,14 @@ import { MovieCoverComponent } from './movie-cover.component';
 import { ComponentFactoryResolver, Directive, Injector, Input, ViewContainerRef, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CONFIGURATION, Configuration } from './configuration';
+import { MOVIEFLATDATA } from '../../models/movie.data';
 
 @Directive({
   selector: '[appMovieCover]',
 })
 export class MovieCoverDirective implements OnInit {
-  @Input() episodeID: string;
+  @Input() filmUrl: string;
   @Input() class: string;
-  covers = [
-    'assets/images/covers/star-wars-episode-iv-a-new-hope.jpg',
-    'assets/images/covers/star-wars-episode-v-the-empire-strikes-back.jpg',
-    'assets/images/covers/star-wars-episode-vi-return-of-the-jedi.jpg',
-    'assets/images/covers/star-wars-episode-i-the-phantom-menace.jpg',
-    'assets/images/covers/star-wars-episode-ii-attack-of-the-clones.jpg',
-    'assets/images/covers/star-wars-episode-iii-revenge-of-the-sith.jpg',
-  ];
 
   constructor(
     private container: ViewContainerRef,
@@ -60,6 +53,8 @@ export class MovieCoverDirective implements OnInit {
   }
 
   getCover() {
-    return this.covers[Number(this.episodeID.slice(this.episodeID.length - 2, -1)) - 1];
+    return MOVIEFLATDATA[
+      Number(this.filmUrl.slice(this.filmUrl.length - 2, -1)) - 1
+    ].coverUrl;
   }
 }

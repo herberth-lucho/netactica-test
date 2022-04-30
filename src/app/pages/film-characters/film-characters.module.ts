@@ -1,3 +1,5 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PipesModule } from './../../shared/pipes/pipes.module';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,6 +14,8 @@ import { FilmCharactersComponent } from './film-characters.component';
     CommonModule,
     FilmCharactersRoutingModule,
     DirectivesModule,
+    PipesModule,
+    NgbModule,
   ]
 })
 export class FilmCharactersModule { }
