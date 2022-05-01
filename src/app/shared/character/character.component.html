@@ -6,8 +6,8 @@
         <div class="card h-100 c-card">
           <div class="card-body">
             <h5 class="card-title">Name: {{ item.name }}</h5>
-            <p class="card-text">Eye color: {{ item.eye_color }}</p>
-            <p class="card-text">Gender: {{ item.gender }}</p>
+            <p class="card-text">Eye color: {{ item.eye_color | titlecase }}</p>
+            <p class="card-text">Gender: {{ item.gender | titlecase }}</p>
             <p>Films:</p>
             <div class="list-group">
               <a

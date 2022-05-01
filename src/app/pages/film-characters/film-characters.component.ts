@@ -14,6 +14,13 @@ import { SwapiService } from 'src/app/shared/services/swapi.service';
 export class FilmCharactersComponent implements OnInit {
   film$: Observable<FilmResult>;
   characterData: CharacterResult[] = [];
+  backCharacterData: CharacterResult[] = [];
+  filteredCharacterData: CharacterResult[] = [];
+  eyeColorData: string[] = [];
+  genderData: string[] = [];
+
+  selectedEyeColor = '';
+  selectedGender = '';
 
   page = 1;
   pageSize = 10;
@@ -59,12 +66,61 @@ export class FilmCharactersComponent implements OnInit {
           films: character.films,
           url: character.url,
         })),
-        tap((data) => this.characterData.push(data))
+        tap((data) => {
+          this.characterData.push(data);
+          this.backCharacterData.push(data);
+          this.filteredCharacterData.push(data);
+          this.eyeColorData.push(data.eye_color);
+          this.genderData.push(data.gender);
+        })
       )
-      .subscribe();
+      .subscribe(() => {
+        const eye = this.eyeColorData;
+        this.eyeColorData = [];
+        this.eyeColorData = [...new Set(eye)];
+        const gender = this.genderData;
+        this.genderData = [];
+        this.genderData = [...new Set(gender)];
+      });
   }
 
   pageChange(e) {
     this.page = e;
+  }
+
+  onChangeEye(e) {
+    this.selectedEyeColor = e;
+    this.oneFilter();
+    if (this.selectedGender !== '') {
+      this.twoFilters();
+    } else if (!e) {
+      this.characterData = this.backCharacterData;
+    }
+  }
+
+  onChangeGender(e) {
+    this.selectedGender = e;
+    this.oneFilter();
+    if (this.selectedEyeColor !== '') {
+      this.twoFilters();
+    } else if (!e) {
+      this.characterData = this.backCharacterData;
+    }
+  }
+
+  twoFilters() {
+    this.characterData = this.backCharacterData.filter(
+      (data) =>
+        data.gender === this.selectedGender.toLowerCase() &&
+        data.eye_color.includes(this.selectedEyeColor.toLowerCase())
+    );
+  }
+
+  oneFilter() {
+    this.characterData = this.backCharacterData.filter(
+      (data) =>
+        data.gender === this.selectedGender.toLowerCase() ||
+        data.eye_color.includes(this.selectedEyeColor.toLowerCase())
+    );
   }
 }

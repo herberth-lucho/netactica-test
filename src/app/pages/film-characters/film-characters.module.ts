@@ -1,3 +1,4 @@
+import { FiltersModule } from './../../shared/filters/filters.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from './../../shared/pipes/pipes.module';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
@@ -18,6 +19,7 @@ import { CharacterModule } from 'src/app/shared/character/character.module';
     PipesModule,
     NgbModule,
     CharacterModule,
+    FiltersModule,
   ]
 })
 export class FilmCharactersModule { }
