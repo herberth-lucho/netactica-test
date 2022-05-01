@@ -11,16 +11,16 @@ import { SwapiService } from 'src/app/shared/services/swapi.service';
   templateUrl: './film-characters.component.html',
   styleUrls: ['./film-characters.component.scss'],
 })
-export class FilmCharactersComponent implements OnInit {
+export class FilmCharactersComponent {
   film$: Observable<FilmResult>;
   characterData: CharacterResult[] = [];
   backCharacterData: CharacterResult[] = [];
-  filteredCharacterData: CharacterResult[] = [];
+
   eyeColorData: string[] = [];
   genderData: string[] = [];
-
   selectedEyeColor = '';
   selectedGender = '';
+  formDirection = 'dropdown';
 
   page = 1;
   pageSize = 10;
@@ -46,8 +46,6 @@ export class FilmCharactersComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   getCharactersIDs(value) {
     value.characters.forEach((element) => {
       this.getCharacterData(element);
@@ -69,7 +67,6 @@ export class FilmCharactersComponent implements OnInit {
         tap((data) => {
           this.characterData.push(data);
           this.backCharacterData.push(data);
-          this.filteredCharacterData.push(data);
           this.eyeColorData.push(data.eye_color);
           this.genderData.push(data.gender);
         })
@@ -90,20 +87,28 @@ export class FilmCharactersComponent implements OnInit {
 
   onChangeEye(e) {
     this.selectedEyeColor = e;
-    this.oneFilter();
+    this.eyeFilter();
     if (this.selectedGender !== '') {
       this.twoFilters();
-    } else if (!e) {
+    }
+    if (this.selectedEyeColor === '') {
+      this.genderFilter();
+    }
+    if (this.selectedEyeColor === '' && this.selectedGender === '') {
       this.characterData = this.backCharacterData;
     }
   }
 
   onChangeGender(e) {
     this.selectedGender = e;
-    this.oneFilter();
+    this.genderFilter();
     if (this.selectedEyeColor !== '') {
       this.twoFilters();
-    } else if (!e) {
+    }
+    if (this.selectedGender === '') {
+      this.eyeFilter();
+    }
+    if (this.selectedEyeColor === '' && this.selectedGender === '') {
       this.characterData = this.backCharacterData;
     }
   }
@@ -116,11 +121,17 @@ export class FilmCharactersComponent implements OnInit {
     );
   }
 
-  oneFilter() {
+  eyeFilter() {
     this.characterData = this.backCharacterData.filter(
       (data) =>
-        data.gender === this.selectedGender.toLowerCase() ||
         data.eye_color.includes(this.selectedEyeColor.toLowerCase())
+    );
+  }
+
+  genderFilter() {
+    this.characterData = this.backCharacterData.filter(
+      (data) =>
+        data.gender === this.selectedGender.toLowerCase()
     );
   }
 }

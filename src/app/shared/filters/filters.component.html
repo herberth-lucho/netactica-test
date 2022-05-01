@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-12">
+  <div [ngClass]="formDirection === 'inline' ? 'col-md-6' : 'col-md-12'">
     <div class="form-group">
       <label for="eye">Eye color</label>
       <select
@@ -14,7 +14,7 @@
       </select>
     </div>
   </div>
-  <div class="col-md-12 my-2">
+  <div [ngClass]="formDirection === 'inline' ? 'col-md-6' : 'col-md-12 my-3'">
     <div class="form-group">
       <label for="gender">Gender</label>
       <select

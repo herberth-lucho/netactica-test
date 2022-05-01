@@ -1,5 +1,27 @@
 <div class="m-5">
-  <ng-container *ngIf="characters$ | async as characterData">
-    <app-character [characterData]="characterData" [collectionSize]="count" (selectedPage)="pageChange($event)" [page]="curentPage" [pageSize]="pageSize"></app-character>
-  </ng-container>
+  <div class="row justify-content-center">
+    <div class="col-md-12 col-lg-8 col-xl-4">
+      <div class="card c-card">
+        <div class="card-body">
+          <div class="row">
+            <app-filters
+              [eyeColorData]="eyeColorData"
+              [genderData]="genderData"
+              [formDirection]="formDirection"
+              (selectedEye)="onChangeEye($event)"
+              (selectedGender)="onChangeGender($event)"
+            ></app-filters>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <app-character
+      [characterData]="characterData | slice: (page - 1) * pageSize:page * pageSize"
+      [collectionSize]="characterData.length"
+      (selectedPage)="pageChange($event)"
+      [page]="page"
+      [pageSize]="pageSize"
+    ></app-character>
 </div>
