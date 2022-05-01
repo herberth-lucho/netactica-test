@@ -1,9 +1,6 @@
-import { element } from 'protractor';
-import { FilmResult } from './../../shared/models/film.model';
 import { SwapiService } from './../../shared/services/swapi.service';
-import { Component, OnInit } from '@angular/core';
-import { filter, map, tap } from 'rxjs/operators';
-import { FilmResponse } from 'src/app/shared/models/film.model';
+import { Component } from '@angular/core';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-films',

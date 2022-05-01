@@ -1,1 +1,5 @@
-<p>characters works!</p>
+<div class="m-5">
+  <ng-container *ngIf="characters$ | async as characterData">
+    <app-character [characterData]="characterData" [collectionSize]="count" (selectedPage)="pageChange($event)" [page]="curentPage" [pageSize]="pageSize"></app-character>
+  </ng-container>
+</div>

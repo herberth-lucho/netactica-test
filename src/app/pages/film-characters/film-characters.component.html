@@ -1,13 +1,6 @@
 <div class="m-5">
   <div class="row justify-content-center">
     <ng-container *ngIf="film$ | async as film">
-      <!-- <div class="col-6">
-        <ng-template
-          appMovieCover
-          [filmUrl]="film.url"
-          [class]="'img-fluid w-25'"
-        ></ng-template>
-      </div> -->
       <div class="col-md-12 col-xl-8">
         <div class="card c-card">
           <div class="card-body">
@@ -51,33 +44,13 @@
     </ng-container>
   </div>
 
-  <div
-    class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 my-5"
-  >
-    <ng-container *ngIf="characterData">
-      <div class="col" *ngFor="let item of characterData | slice: (page-1) * pageSize : page * pageSize">
-        <div class="card h-100 c-card">
-          <div class="card-body">
-            <h5 class="card-title">Name: {{ item.name }}</h5>
-            <p class="card-text">Eye color: {{ item.eye_color }}</p>
-            <p class="card-text">Gender: {{ item.gender }}</p>
-            <p>Films:</p>
-            <div class="list-group">
-              <a
-                href="#"
-                class="list-group-item list-group-item-action"
-                aria-current="true"
-                *ngFor="let item of item.films"
-              >
-                {{ item | movieNameFromMovieUrl }}
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-
-  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="characterData.length" [(page)]="page"></ngb-pagination>
-
+  <app-character
+    [characterData]="
+      characterData | slice: (page - 1) * pageSize:page * pageSize
+    "
+    [collectionSize]="characterData.length"
+    [page]="page"
+    [pageSize]="pageSize"
+    (selectedPage)="pageChange($event)"
+  ></app-character>
 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Character } from 'src/app/shared/models/character.model';
+import { CharacterResult } from 'src/app/shared/models/character.model';
 import { FilmResult } from 'src/app/shared/models/film.model';
 import { SwapiService } from 'src/app/shared/services/swapi.service';
 
@@ -13,8 +13,7 @@ import { SwapiService } from 'src/app/shared/services/swapi.service';
 })
 export class FilmCharactersComponent implements OnInit {
   film$: Observable<FilmResult>;
-  characters$: Observable<Character>;
-  characterData: Character[] = [];
+  characterData: CharacterResult[] = [];
 
   page = 1;
   pageSize = 10;
@@ -63,5 +62,9 @@ export class FilmCharactersComponent implements OnInit {
         tap((data) => this.characterData.push(data))
       )
       .subscribe();
+  }
+
+  pageChange(e) {
+    this.page = e;
   }
 }

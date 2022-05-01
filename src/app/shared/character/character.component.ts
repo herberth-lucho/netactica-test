@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CharacterResult } from '../models/character.model';
 
 @Component({
   selector: 'app-character',
   templateUrl: './character.component.html',
-  styleUrls: ['./character.component.scss']
+  styleUrls: ['./character.component.scss'],
 })
-export class CharacterComponent implements OnInit {
+export class CharacterComponent {
+  @Input() characterData: CharacterResult[];
+  @Input() collectionSize: number;
+  @Input() page: string;
+  @Input() pageSize: number;
+  @Output() selectedPage = new EventEmitter<number>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  pageChange(e) {
+    this.selectedPage.emit(e);
   }
-
 }

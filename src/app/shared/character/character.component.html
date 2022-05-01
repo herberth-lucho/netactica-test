@@ -1,1 +1,28 @@
-<p>character works!</p>
+<div
+    class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 my-5"
+  >
+    <ng-container *ngIf="characterData">
+      <div class="col" *ngFor="let item of characterData">
+        <div class="card h-100 c-card">
+          <div class="card-body">
+            <h5 class="card-title">Name: {{ item.name }}</h5>
+            <p class="card-text">Eye color: {{ item.eye_color }}</p>
+            <p class="card-text">Gender: {{ item.gender }}</p>
+            <p>Films:</p>
+            <div class="list-group">
+              <a
+                href="#"
+                class="list-group-item list-group-item-action"
+                aria-current="true"
+                *ngFor="let item of item.films"
+              >
+                {{ item | movieNameFromMovieUrl }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <ngb-pagination class="d-flex justify-content-center" [collectionSize]="collectionSize" [(page)]="page" [maxSize]="5" (pageChange)="pageChange($event)"></ngb-pagination>

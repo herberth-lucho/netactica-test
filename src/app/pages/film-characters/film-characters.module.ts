@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 import { FilmCharactersRoutingModule } from './film-characters-routing.module';
 import { FilmCharactersComponent } from './film-characters.component';
+import { CharacterModule } from 'src/app/shared/character/character.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FilmCharactersComponent } from './film-characters.component';
     DirectivesModule,
     PipesModule,
     NgbModule,
+    CharacterModule,
   ]
 })
 export class FilmCharactersModule { }
