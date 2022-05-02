@@ -3,13 +3,15 @@
     <ng-container *ngIf="films$ | async as film">
       <div class="col-md-6 col-lg-4" *ngFor="let item of film">
         <div class="card c-card">
-          <ng-template
-            appMovieCover
-            [filmUrl]="item.url"
-            [class]="'card-img-top'"
-          ></ng-template>
+          <a (click)="open(item)" class="pointer">
+            <ng-template
+              appMovieCover
+              [filmUrl]="item.url"
+              [class]="'card-img-top'"
+            ></ng-template>
+          </a>
           <div class="card-body">
-            <h5 class="card-title" (click)="open(item)">{{ item.title }}</h5>
+            <h5 class="card-title pointer" (click)="open(item)">{{ item.title }}</h5>
             <p class="card-text">
               Episode {{ item.episode_id | romanNumber }} / Director:
               {{ item.director }}

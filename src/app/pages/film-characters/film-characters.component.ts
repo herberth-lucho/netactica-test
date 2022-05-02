@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ModalOpeningCrawlComponent } from 'src/app/shared/modal-opening-crawl/modal-opening-crawl.component';
 import { CharacterResult } from 'src/app/shared/models/character.model';
 import { FilmResult } from 'src/app/shared/models/film.model';
 import { SwapiService } from 'src/app/shared/services/swapi.service';
@@ -27,7 +29,8 @@ export class FilmCharactersComponent {
 
   constructor(
     public activatedRoute: ActivatedRoute,
-    public swapiService: SwapiService
+    public swapiService: SwapiService,
+    private modalService: NgbModal,
   ) {
     this.activatedRoute.parent.params.subscribe((queryParams: any) => {
       this.film$ = this.swapiService.getFilmById(queryParams.id).pipe(
@@ -122,16 +125,25 @@ export class FilmCharactersComponent {
   }
 
   eyeFilter() {
-    this.characterData = this.backCharacterData.filter(
-      (data) =>
-        data.eye_color.includes(this.selectedEyeColor.toLowerCase())
+    this.characterData = this.backCharacterData.filter((data) =>
+      data.eye_color.includes(this.selectedEyeColor.toLowerCase())
     );
   }
 
   genderFilter() {
     this.characterData = this.backCharacterData.filter(
-      (data) =>
-        data.gender === this.selectedGender.toLowerCase()
+      (data) => data.gender === this.selectedGender.toLowerCase()
     );
+  }
+
+  open(data: FilmResult) {
+    const modalRef = this.modalService.open(ModalOpeningCrawlComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      size: 'lg',
+      scrollable: false,
+    });
+    modalRef.componentInstance.filmData = data;
   }
 }

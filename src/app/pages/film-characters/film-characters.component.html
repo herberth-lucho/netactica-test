@@ -6,11 +6,13 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-3">
-                <ng-template
-                  appMovieCover
-                  [filmUrl]="film.url"
-                  [class]="'img-fluid'"
-                ></ng-template>
+                <a (click)="open(film)" class="pointer">
+                  <ng-template
+                    appMovieCover
+                    [filmUrl]="film.url"
+                    [class]="'img-fluid'"
+                  ></ng-template>
+                </a>
               </div>
               <div class="col-md-9">
                 <h1>{{ film.title }}</h1>
