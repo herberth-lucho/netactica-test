@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ModalOpeningCrawlComponent } from 'src/app/shared/components/modal-opening-crawl/modal-opening-crawl.component';
@@ -30,8 +31,10 @@ export class FilmCharactersComponent {
   constructor(
     public activatedRoute: ActivatedRoute,
     public swapiService: SwapiService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService,
   ) {
+    this.spinner.show();
     this.activatedRoute.parent.params.subscribe((queryParams: any) => {
       this.film$ = this.swapiService.getFilmById(queryParams.id).pipe(
         map((film) => ({
@@ -44,6 +47,9 @@ export class FilmCharactersComponent {
         })),
         tap((data) => {
           this.getCharactersIDs(data);
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
         })
       );
     });
@@ -110,10 +116,7 @@ export class FilmCharactersComponent {
   }
 
   filter() {
-    if (
-      this.selectedEyeColor === null &&
-      this.selectedGender === null
-    ) {
+    if (this.selectedEyeColor === null && this.selectedGender === null) {
       this.characterData = this.backCharacterData;
     } else {
       let tempCharacters = this.backCharacterData;

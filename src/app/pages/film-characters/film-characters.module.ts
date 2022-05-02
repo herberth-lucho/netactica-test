@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FilmCharactersRoutingModule } from './film-characters-routing.module';
 import { FilmCharactersComponent } from './film-characters.component';
 import { CharacterModule } from 'src/app/shared/components/character/character.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CharacterModule } from 'src/app/shared/components/character/character.m
     NgbModule,
     CharacterModule,
     FiltersModule,
-  ]
+    NgxSpinnerModule,
+  ],
 })
-export class FilmCharactersModule { }
+export class FilmCharactersModule {}

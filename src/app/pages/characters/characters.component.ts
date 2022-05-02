@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { filter, first, map, skip, take, tap } from 'rxjs/operators';
 import { SwapiService } from 'src/app/shared/services/swapi.service';
 import { interval, Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-characters',
@@ -28,7 +29,10 @@ export class CharactersComponent {
   selectedGender = null;
   formDirection = 'inline';
 
-  constructor(public swapiService: SwapiService) {
+  constructor(
+    public swapiService: SwapiService,
+    private spinner: NgxSpinnerService,
+  ) {
     this.getFilterData();
   }
 
@@ -38,6 +42,7 @@ export class CharactersComponent {
 
   getFilterData() {
     const numbers = interval(100);
+    this.spinner.show();
     numbers.pipe(take(10), skip(1)).subscribe({
       next: (n) => {
         this.curentPage = n;
@@ -67,7 +72,10 @@ export class CharactersComponent {
             this.filmData = [...new Set(film)];
           });
       },
-      complete: () => (this.curentPage = 1),
+      complete: () => {
+        this.curentPage = 1;
+        this.spinner.hide();
+      },
     });
   }
 

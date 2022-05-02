@@ -1,3 +1,8 @@
+<div class="row" *ngIf="filmData">
+  <div class="col-12">
+    <h1 class="text-warning">Filters</h1>
+  </div>
+</div>
 <div class="row">
   <div [ngClass]="formDirection === 'inline' ? (filmData ? 'col-md-4' : 'col-md-6') : 'col-md-12'">
     <div class="form-group">

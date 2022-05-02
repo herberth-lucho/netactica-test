@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FilmsRoutingModule } from './films-routing.module';
 import { FilmsComponent } from './films.component';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
     FilmsRoutingModule,
     PipesModule,
     DirectivesModule,
-  ]
+    NgxSpinnerModule,
+  ],
 })
-export class FilmsModule { }
+export class FilmsModule {}

@@ -1,9 +1,10 @@
 import { FilmResult } from 'src/app/shared/models/film.model';
 import { SwapiService } from './../../shared/services/swapi.service';
 import { Component } from '@angular/core';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalOpeningCrawlComponent } from 'src/app/shared/components/modal-opening-crawl/modal-opening-crawl.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-films',
@@ -22,13 +23,21 @@ export class FilmsComponent {
         director: film.director,
         url: film.url,
       }))
-    )
+    ),
+    tap(() => {
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 1000);
+    })
   );
 
   constructor(
     public swapiService: SwapiService,
-    private modalService: NgbModal
-  ) {}
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService,
+  ) {
+    spinner.show();
+  }
 
   open(data: FilmResult) {
     const modalRef = this.modalService.open(ModalOpeningCrawlComponent, {
