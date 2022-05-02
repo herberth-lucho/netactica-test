@@ -1,4 +1,4 @@
-import { FiltersModule } from './../../shared/filters/filters.module';
+import { FiltersModule } from '../../shared/filters/filters.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from './../../shared/pipes/pipes.module';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { FilmCharactersRoutingModule } from './film-characters-routing.module';
 import { FilmCharactersComponent } from './film-characters.component';
-import { CharacterModule } from 'src/app/shared/character/character.module';
+import { CharacterModule } from 'src/app/shared/components/character/character.module';
 
 
 @NgModule({

@@ -10,14 +10,13 @@
             <p class="card-text">Gender: {{ item.gender | titlecase }}</p>
             <p>Films:</p>
             <div class="list-group">
-              <a
-                href="#"
+              <button
                 class="list-group-item list-group-item-action"
-                aria-current="true"
                 *ngFor="let item of item.films"
+                (click)="showCrawl(item)"
               >
                 {{ item | movieNameFromMovieUrl }}
-              </a>
+              </button>
             </div>
           </div>
         </div>

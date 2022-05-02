@@ -9,3 +9,9 @@
 
 /* Importing Bootstrap SCSS file. */
 // @import '~bootstrap/scss/bootstrap';
+@media (min-width: 992px) {
+  .modal-lg,
+  .modal-xl {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h4 class="modal-title text-warning">{{ filmData?.title }}</h4>
+  <button
+    type="button"
+    class="btn-close btn-warning"
+    aria-label="Close"
+    (click)="close()"
+  ></button>
+</div>
+<div class="modal-body">
+  <div class="fade"></div>
+
+  <section class="star-wars">
+    <div class="crawl">
+      <div class="title">
+        <h1>STAR WARS</h1>
+        <p>Episode {{ romanNumber[filmData?.episode_id - 1] }}</p>
+        <h1>{{ filmData?.title }}</h1>
+      </div>
+
+      <p>
+        {{ filmData?.opening_crawl }}
+      </p>
+    </div>
+  </section>
+</div>

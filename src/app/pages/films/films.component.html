@@ -1,22 +1,22 @@
 <div class="m-5">
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     <ng-container *ngIf="films$ | async as film">
-      <div class="col" *ngFor="let item of film">
-        <div class="card h-100 c-card">
+      <div class="col-md-6 col-lg-4" *ngFor="let item of film">
+        <div class="card c-card">
           <ng-template
             appMovieCover
             [filmUrl]="item.url"
             [class]="'card-img-top'"
           ></ng-template>
           <div class="card-body">
-            <h5 class="card-title">{{ item.title }}</h5>
+            <h5 class="card-title" (click)="open(item)">{{ item.title }}</h5>
             <p class="card-text">
               Episode {{ item.episode_id | romanNumber }} / Director:
               {{ item.director }}
             </p>
           </div>
           <div class="card-footer text-center">
-            <a [routerLink]="item.url.slice(item.url.length - 2, -1)" class="btn btn-outline-light">
+            <a [routerLink]="['/films', item.url.slice(item.url.length - 2, -1)]" class="btn btn-outline-light">
               <img
                 src="assets/images/c3p0_icon-icons.com_76936.png"
                 class=""
