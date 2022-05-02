@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ModalOpeningCrawlComponent } from 'src/app/shared/modal-opening-crawl/modal-opening-crawl.component';
+import { ModalOpeningCrawlComponent } from 'src/app/shared/components/modal-opening-crawl/modal-opening-crawl.component';
 import { CharacterResult } from 'src/app/shared/models/character.model';
 import { FilmResult } from 'src/app/shared/models/film.model';
 import { SwapiService } from 'src/app/shared/services/swapi.service';

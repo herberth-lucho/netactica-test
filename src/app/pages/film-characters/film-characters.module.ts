@@ -1,4 +1,4 @@
-import { FiltersModule } from '../../shared/filters/filters.module';
+import { FiltersModule } from '../../shared/components/filters/filters.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PipesModule } from './../../shared/pipes/pipes.module';
 import { DirectivesModule } from 'src/app/shared/directives/directives.module';

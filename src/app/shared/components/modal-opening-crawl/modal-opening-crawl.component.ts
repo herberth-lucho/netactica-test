@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FilmResult } from '../models/film.model';
-import { SwapiService } from '../services/swapi.service';
+import { FilmResult } from '../../models/film.model';
+import { SwapiService } from '../../services/swapi.service';
 
 @Component({
   selector: 'app-modal-opening-crawl',

@@ -3,7 +3,7 @@ import { SwapiService } from './../../shared/services/swapi.service';
 import { Component } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalOpeningCrawlComponent } from 'src/app/shared/modal-opening-crawl/modal-opening-crawl.component';
+import { ModalOpeningCrawlComponent } from 'src/app/shared/components/modal-opening-crawl/modal-opening-crawl.component';
 
 @Component({
   selector: 'app-films',

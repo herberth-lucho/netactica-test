@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalOpeningCrawlComponent } from '../../modal-opening-crawl/modal-opening-crawl.component';
 import { CharacterResult } from '../../models/character.model';
+import { ModalOpeningCrawlComponent } from '../modal-opening-crawl/modal-opening-crawl.component';
 
 @Component({
   selector: 'app-character',
