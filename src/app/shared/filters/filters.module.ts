@@ -1,3 +1,4 @@
+import { PipesModule } from './../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FiltersComponent } from './filters.component';
@@ -7,7 +8,8 @@ import { FiltersComponent } from './filters.component';
 @NgModule({
   declarations: [FiltersComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    PipesModule,
   ],
   exports: [FiltersComponent]
 })

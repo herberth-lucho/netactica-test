@@ -23,22 +23,18 @@ export class CharactersComponent {
   eyeColorData: string[] = [];
   genderData: string[] = [];
   selectedEyeColor = '';
+  filmData: string[] = [];
+  selectedFilm = '';
   selectedGender = '';
   formDirection = 'inline';
 
   constructor(public swapiService: SwapiService) {
-    // this.getData();
     this.getFilterData();
   }
 
   pageChange(e) {
     this.page = e;
-    // this.getData();
   }
-
-  /* getData() {
-    this.characters$ = this.getCharactersData();
-  } */
 
   getFilterData() {
     const numbers = interval(100);
@@ -53,6 +49,9 @@ export class CharactersComponent {
                 this.backCharacterData.push(element);
                 this.eyeColorData.push(element.eye_color);
                 this.genderData.push(element.gender);
+                element.films.forEach((filmUrl) => {
+                  this.filmData.push(filmUrl);
+                });
               });
             })
           )
@@ -63,6 +62,9 @@ export class CharactersComponent {
             const gender = this.genderData;
             this.genderData = [];
             this.genderData = [...new Set(gender)];
+            const film = this.filmData;
+            this.filmData = [];
+            this.filmData = [...new Set(film)];
           });
       },
       complete: () => (this.curentPage = 1),
@@ -89,30 +91,38 @@ export class CharactersComponent {
     );
   }
 
-  onChangeEye(e) {
+  onChangeEye(e: string) {
     this.selectedEyeColor = e;
-    this.eyeFilter();
+    this.oneFilter(this.eyefilter);
     if (this.selectedGender !== '') {
       this.twoFilters();
     }
     if (this.selectedEyeColor === '') {
-      this.genderFilter();
+      this.oneFilter(this.genderfilter);
     }
     if (this.selectedEyeColor === '' && this.selectedGender === '') {
       this.characterData = this.backCharacterData;
     }
   }
 
-  onChangeGender(e) {
+  onChangeGender(e: string) {
     this.selectedGender = e;
-    this.genderFilter();
+    this.oneFilter(this.genderfilter);
     if (this.selectedEyeColor !== '') {
       this.twoFilters();
     }
     if (this.selectedGender === '') {
-      this.eyeFilter();
+      this.oneFilter(this.eyefilter);
     }
     if (this.selectedEyeColor === '' && this.selectedGender === '') {
+      this.characterData = this.backCharacterData;
+    }
+  }
+
+  onChangeFilm(e: string) {
+    this.selectedFilm = e;
+    this.oneFilter(this.filmfilter);
+    if (this.selectedFilm === '') {
       this.characterData = this.backCharacterData;
     }
   }
@@ -125,15 +135,19 @@ export class CharactersComponent {
     );
   }
 
-  eyeFilter() {
-    this.characterData = this.backCharacterData.filter((data) =>
-      data.eye_color.includes(this.selectedEyeColor.toLowerCase())
-    );
+  eyefilter = (data: CharacterResult) => {
+    return data.eye_color.includes(this.selectedEyeColor.toLowerCase());
   }
 
-  genderFilter() {
-    this.characterData = this.backCharacterData.filter(
-      (data) => data.gender === this.selectedGender.toLowerCase()
-    );
+  genderfilter = (data: CharacterResult) => {
+    return data.gender === this.selectedGender.toLowerCase();
+  }
+
+  filmfilter = (data: CharacterResult) => {
+    return data.films.find((elem) => elem === this.selectedFilm);
+  }
+
+  oneFilter(callb: any) {
+    this.characterData = this.backCharacterData.filter(callb);
   }
 }

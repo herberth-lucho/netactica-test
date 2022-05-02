@@ -1,6 +1,6 @@
 <div class="m-5">
   <div class="row justify-content-center">
-    <div class="col-md-12 col-lg-8 col-xl-4">
+    <div class="col-md-12 col-lg-8 col-xl-6">
       <div class="card c-card">
         <div class="card-body">
           <div class="row">
@@ -8,8 +8,10 @@
               [eyeColorData]="eyeColorData"
               [genderData]="genderData"
               [formDirection]="formDirection"
+              [filmData]="filmData"
               (selectedEye)="onChangeEye($event)"
               (selectedGender)="onChangeGender($event)"
+              (selectedFilm)="onChangeFilm($event)"
             ></app-filters>
           </div>
         </div>
@@ -17,11 +19,13 @@
     </div>
   </div>
 
-    <app-character
-      [characterData]="characterData | slice: (page - 1) * pageSize:page * pageSize"
-      [collectionSize]="characterData.length"
-      (selectedPage)="pageChange($event)"
-      [page]="page"
-      [pageSize]="pageSize"
-    ></app-character>
+  <app-character
+    [characterData]="
+      characterData | slice: (page - 1) * pageSize:page * pageSize
+    "
+    [collectionSize]="characterData.length"
+    (selectedPage)="pageChange($event)"
+    [page]="page"
+    [pageSize]="pageSize"
+  ></app-character>
 </div>

@@ -1,5 +1,5 @@
 <div class="row">
-  <div [ngClass]="formDirection === 'inline' ? 'col-md-6' : 'col-md-12'">
+  <div [ngClass]="formDirection === 'inline' ? (filmData ? 'col-md-4' : 'col-md-6') : 'col-md-12'">
     <div class="form-group">
       <label for="eye">Eye color</label>
       <select
@@ -8,13 +8,13 @@
         (change)="onChangeEye($event.target.value)"
       >
         <option value="">Select an eye color</option>
-        <option *ngFor="let item of eyeColorData">
+        <option *ngFor="let item of eyeColorData.sort()">
           {{ item | titlecase }}
         </option>
       </select>
     </div>
   </div>
-  <div [ngClass]="formDirection === 'inline' ? 'col-md-6' : 'col-md-12 my-3'">
+  <div [ngClass]="formDirection === 'inline' ? (filmData ? 'col-md-4' : 'col-md-6') : 'col-md-12 my-3'">
     <div class="form-group">
       <label for="gender">Gender</label>
       <select
@@ -23,7 +23,20 @@
         (change)="onChangeGender($event.target.value)"
       >
         <option value="">Select a gender</option>
-        <option *ngFor="let item of genderData">{{ item | titlecase }}</option>
+        <option *ngFor="let item of genderData.sort()">{{ item | titlecase }}</option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="filmData" [ngClass]="formDirection === 'inline' ? (filmData ? 'col-md-4' : '') : 'col-md-12 my-3'">
+    <div class="form-group">
+      <label for="film">Film</label>
+      <select
+        class="form-control"
+        name="film"
+        (change)="onChangeFilm($event.target.value)"
+      >
+        <option value="">Select a Film</option>
+        <option *ngFor="let item of filmData.sort()" [value]="item">{{ item | movieNameFromMovieUrl }}</option>
       </select>
     </div>
   </div>

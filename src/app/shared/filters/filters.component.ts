@@ -8,9 +8,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class FiltersComponent {
   @Input() eyeColorData: string[];
   @Input() genderData: string[];
+  @Input() filmData: string[];
   @Input() formDirection: 'inline' | 'dropdown';
   @Output() selectedEye = new EventEmitter<string>();
   @Output() selectedGender = new EventEmitter<string>();
+  @Output() selectedFilm = new EventEmitter<string>();
 
   onChangeEye(e) {
     this.selectedEye.emit(e);
@@ -18,5 +20,9 @@ export class FiltersComponent {
 
   onChangeGender(e) {
     this.selectedGender.emit(e);
+  }
+
+  onChangeFilm(e) {
+    this.selectedFilm.emit(e);
   }
 }
