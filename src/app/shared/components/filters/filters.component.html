@@ -7,7 +7,6 @@
         name="eye"
         (change)="onChangeEye($event.target.value)"
       >
-        <option value="">Select an eye color</option>
         <option *ngFor="let item of eyeColorData.sort()">
           {{ item | titlecase }}
         </option>
@@ -22,7 +21,6 @@
         name="gender"
         (change)="onChangeGender($event.target.value)"
       >
-        <option value="">Select a gender</option>
         <option *ngFor="let item of genderData.sort()">{{ item | titlecase }}</option>
       </select>
     </div>
@@ -35,7 +33,6 @@
         name="film"
         (change)="onChangeFilm($event.target.value)"
       >
-        <option value="">Select a Film</option>
         <option *ngFor="let item of filmData.sort()" [value]="item">{{ item | movieNameFromMovieUrl }}</option>
       </select>
     </div>

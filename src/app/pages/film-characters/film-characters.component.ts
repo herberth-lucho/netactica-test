@@ -20,8 +20,8 @@ export class FilmCharactersComponent {
 
   eyeColorData: string[] = [];
   genderData: string[] = [];
-  selectedEyeColor = '';
-  selectedGender = '';
+  selectedEyeColor = null;
+  selectedGender = null;
   formDirection = 'dropdown';
 
   page = 1;
@@ -30,7 +30,7 @@ export class FilmCharactersComponent {
   constructor(
     public activatedRoute: ActivatedRoute,
     public swapiService: SwapiService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {
     this.activatedRoute.parent.params.subscribe((queryParams: any) => {
       this.film$ = this.swapiService.getFilmById(queryParams.id).pipe(
@@ -90,50 +90,12 @@ export class FilmCharactersComponent {
 
   onChangeEye(e) {
     this.selectedEyeColor = e;
-    this.eyeFilter();
-    if (this.selectedGender !== '') {
-      this.twoFilters();
-    }
-    if (this.selectedEyeColor === '') {
-      this.genderFilter();
-    }
-    if (this.selectedEyeColor === '' && this.selectedGender === '') {
-      this.characterData = this.backCharacterData;
-    }
+    this.filter();
   }
 
   onChangeGender(e) {
     this.selectedGender = e;
-    this.genderFilter();
-    if (this.selectedEyeColor !== '') {
-      this.twoFilters();
-    }
-    if (this.selectedGender === '') {
-      this.eyeFilter();
-    }
-    if (this.selectedEyeColor === '' && this.selectedGender === '') {
-      this.characterData = this.backCharacterData;
-    }
-  }
-
-  twoFilters() {
-    this.characterData = this.backCharacterData.filter(
-      (data) =>
-        data.gender === this.selectedGender.toLowerCase() &&
-        data.eye_color.includes(this.selectedEyeColor.toLowerCase())
-    );
-  }
-
-  eyeFilter() {
-    this.characterData = this.backCharacterData.filter((data) =>
-      data.eye_color.includes(this.selectedEyeColor.toLowerCase())
-    );
-  }
-
-  genderFilter() {
-    this.characterData = this.backCharacterData.filter(
-      (data) => data.gender === this.selectedGender.toLowerCase()
-    );
+    this.filter();
   }
 
   open(data: FilmResult) {
@@ -145,5 +107,32 @@ export class FilmCharactersComponent {
       scrollable: false,
     });
     modalRef.componentInstance.filmData = data;
+  }
+
+  filter() {
+    if (
+      this.selectedEyeColor === null &&
+      this.selectedGender === null
+    ) {
+      this.characterData = this.backCharacterData;
+    } else {
+      let tempCharacters = this.backCharacterData;
+
+      if (this.selectedEyeColor !== null) {
+        tempCharacters = tempCharacters.filter((character) =>
+          character?.eye_color?.includes(this.selectedEyeColor.toLowerCase())
+        );
+      }
+
+      if (this.selectedGender !== null) {
+        tempCharacters = tempCharacters.filter(
+          (character) =>
+            character.gender.toLowerCase() ===
+            this.selectedGender?.toLowerCase()
+        );
+      }
+
+      this.characterData = tempCharacters;
+    }
   }
 }

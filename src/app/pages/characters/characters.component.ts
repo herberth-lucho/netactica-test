@@ -22,10 +22,10 @@ export class CharactersComponent {
 
   eyeColorData: string[] = [];
   genderData: string[] = [];
-  selectedEyeColor = '';
+  selectedEyeColor = null;
   filmData: string[] = [];
-  selectedFilm = '';
-  selectedGender = '';
+  selectedFilm = null;
+  selectedGender = null;
   formDirection = 'inline';
 
   constructor(public swapiService: SwapiService) {
@@ -93,61 +93,50 @@ export class CharactersComponent {
 
   onChangeEye(e: string) {
     this.selectedEyeColor = e;
-    this.oneFilter(this.eyefilter);
-    if (this.selectedGender !== '') {
-      this.twoFilters();
-    }
-    if (this.selectedEyeColor === '') {
-      this.oneFilter(this.genderfilter);
-    }
-    if (this.selectedEyeColor === '' && this.selectedGender === '') {
-      this.characterData = this.backCharacterData;
-    }
+    this.filter();
   }
 
   onChangeGender(e: string) {
     this.selectedGender = e;
-    this.oneFilter(this.genderfilter);
-    if (this.selectedEyeColor !== '') {
-      this.twoFilters();
-    }
-    if (this.selectedGender === '') {
-      this.oneFilter(this.eyefilter);
-    }
-    if (this.selectedEyeColor === '' && this.selectedGender === '') {
-      this.characterData = this.backCharacterData;
-    }
+    this.filter();
   }
 
   onChangeFilm(e: string) {
     this.selectedFilm = e;
-    this.oneFilter(this.filmfilter);
-    if (this.selectedFilm === '') {
+    this.filter();
+  }
+
+  filter() {
+    if (
+      this.selectedEyeColor === null &&
+      this.selectedGender === null &&
+      this.selectedFilm === null
+    ) {
       this.characterData = this.backCharacterData;
+    } else {
+      let tempCharacters = this.backCharacterData;
+
+      if (this.selectedEyeColor !== null) {
+        tempCharacters = tempCharacters.filter((character) =>
+          character?.eye_color?.includes(this.selectedEyeColor.toLowerCase())
+        );
+      }
+
+      if (this.selectedGender !== null) {
+        tempCharacters = tempCharacters.filter(
+          (character) =>
+            character.gender.toLowerCase() ===
+            this.selectedGender?.toLowerCase()
+        );
+      }
+
+      if (this.selectedFilm !== null) {
+        tempCharacters = tempCharacters.filter((character) => {
+          return character.films.find((elem) => elem === this.selectedFilm);
+        });
+      }
+
+      this.characterData = tempCharacters;
     }
-  }
-
-  twoFilters() {
-    this.characterData = this.backCharacterData.filter(
-      (data) =>
-        data.gender === this.selectedGender.toLowerCase() &&
-        data.eye_color.includes(this.selectedEyeColor.toLowerCase())
-    );
-  }
-
-  eyefilter = (data: CharacterResult) => {
-    return data.eye_color.includes(this.selectedEyeColor.toLowerCase());
-  }
-
-  genderfilter = (data: CharacterResult) => {
-    return data.gender === this.selectedGender.toLowerCase();
-  }
-
-  filmfilter = (data: CharacterResult) => {
-    return data.films.find((elem) => elem === this.selectedFilm);
-  }
-
-  oneFilter(callb: any) {
-    this.characterData = this.backCharacterData.filter(callb);
   }
 }
